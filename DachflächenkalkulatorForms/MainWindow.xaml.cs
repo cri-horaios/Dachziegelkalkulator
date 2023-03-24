@@ -24,59 +24,61 @@ namespace DachflächenkalkulatorForms
         {
             InitializeComponent();
         }
-        private double hausbreite;
-        private double hauslänge;
-        private double überstandLänge;
-        private double überstandBreite;
-        private double dachhöhe;
-        private double neigungswinkel;
-        private double ziegelProReihe;
-        private double reihen;
-        private double eindeckbreite;
-        private double eindeckhöhe;
-        private double dachziegelProReihe;
-        private double dachlänge;
-        private double sparrenlänge;
-        private double dachbreite;
-        private double dachfläche;
+        public double hausbreite;
+        public double hauslänge;
+        public double überstandLänge;
+        public double überstandBreite;
+        public double dachhöhe;
+        public double neigungswinkel;
+        public double ziegelProReihe;
+        public double reihen;
+        public double eindeckbreite;
+        public double eindeckhöhe;
+        public double dachziegelProReihe;
+        public double dachlänge;
+        public double sparrenlänge;
+        public double dachbreite;
+        public double dachfläche;
+
         private void txt_Hauslänge_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_Hauslänge.Text))
-                hauslänge = Convert.ToDouble(txt_Hauslänge.Text);
+            if (string.IsNullOrEmpty(txt_Hauslänge.Text)) return;
+            hauslänge = Convert.ToDouble(txt_Hauslänge.Text);
             updateDachlänge();
         }
 
         private void txt_Hausbreite_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_Hausbreite.Text))
-                hausbreite = Convert.ToDouble(txt_Hausbreite.Text);
+            if (string.IsNullOrEmpty(txt_Hausbreite.Text)) return;
+            hausbreite = Convert.ToDouble(txt_Hausbreite.Text);
             updateDachbreite();
         }
 
         private void txt_ÜberstandLänge_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_ÜberstandLänge.Text))
-                überstandLänge = Convert.ToDouble(txt_ÜberstandLänge.Text);
+            if (string.IsNullOrEmpty(txt_ÜberstandLänge.Text)) return;
+            überstandLänge = Convert.ToDouble(txt_ÜberstandLänge.Text);
             updateDachlänge();
         }
 
         private void txt_ÜberstandBreite_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_ÜberstandBreite.Text))
-                überstandBreite = Convert.ToDouble(txt_ÜberstandBreite.Text);
-            updateDachbreite();        
+            if (string.IsNullOrEmpty(txt_ÜberstandBreite.Text)) return;
+            überstandBreite = Convert.ToDouble(txt_ÜberstandBreite.Text);
+            updateDachbreite();
         }
 
         private void txt_Dachhöhe_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_Dachhöhe.Text))
+            if (string.IsNullOrEmpty(txt_Dachhöhe.Text)) return;
                 dachhöhe = Convert.ToDouble(txt_Dachhöhe.Text);
+            txt_Neigungswinkel.Text = Math.Sin(dachhöhe / sparrenlänge).ToString();
             UpdateDachfläche();        
         }
 
         private void txt_Neigungswinkel_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_Neigungswinkel.Text))
+            if (string.IsNullOrEmpty(txt_Neigungswinkel.Text)) return;
                 neigungswinkel = Convert.ToDouble(txt_Neigungswinkel.Text);
             UpdateDachfläche();
         }
@@ -88,15 +90,6 @@ namespace DachflächenkalkulatorForms
             updateDachziegelProReihe();
             //TODO: Updateaufrufe!
         }
-        
-        private void txt_MengeProReihe_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txt_MengeProReihe.Text))
-                ziegelProReihe = Convert.ToDouble(txt_MengeProReihe.Text);
-            txt_MengeProReihe.Text = ziegelProReihe.ToString();
-            updateDachziegelGesamt();
-        }
-        
         private void txt_Eindeckhöhe_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!string.IsNullOrEmpty(txt_Eindeckhöhe.Text))
@@ -105,25 +98,39 @@ namespace DachflächenkalkulatorForms
             //TODO: Updateaufrufe!
         }
 
+        private void txt_MengeProReihe_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //if (string.IsNullOrEmpty(txt_MengeProReihe.Text))
+            ziegelProReihe = Convert.ToDouble(txt_MengeProReihe.Text);
+            //txt_MengeProReihe.Text = ziegelProReihe.ToString();
+            updateDachziegelGesamt();
+        }
+                
         private void txt_AnzahlReihen_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_AnzahlReihen.Text))
+            if (string.IsNullOrEmpty(txt_AnzahlReihen.Text)) return;
                 reihen = Convert.ToDouble(txt_AnzahlReihen.Text);
             updateDachziegelGesamt();
         }
 
         private void txt_Dachfläche_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_Dachfläche.Text))
+            if (string.IsNullOrEmpty(txt_Dachfläche.Text)) return;
                 updateDachziegelGesamt();
         }
 
         private void txt_DachziegelGesamt_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_DachziegelGesamt.Text)) return;
-        }
-        
-        
+            if (string.IsNullOrEmpty(txt_DachziegelGesamt.Text)) return;
+        }        
+        //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
+        //////////////Update-Berechnungen/////////////////
+        //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
+        //////////////////////////////////////////////////
+       
         private void updateDachbreite()
         {
             if (hausbreite != 0 && überstandBreite != 0)
@@ -176,11 +183,11 @@ namespace DachflächenkalkulatorForms
             txt_Dachfläche.Text = dachfläche.ToString();
             updateReihen();
             updateDachziegelProReihe();
-            
         }
 
         private void updateDachziegelGesamt()
         {
+            if (reihen == 0 || dachziegelProReihe == 0) return;
             txt_DachziegelGesamt.Text = (reihen * dachziegelProReihe).ToString();
         }
     }
