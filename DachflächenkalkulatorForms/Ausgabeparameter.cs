@@ -1,4 +1,6 @@
-﻿namespace DachflächenkalkulatorForms;
+﻿using System;
+
+namespace DachflächenkalkulatorForms;
 
 public class Ausgabeparameter
 {
@@ -19,29 +21,30 @@ public class Ausgabeparameter
     public void UpdateDachfläche()
     {
         
-        if (rp.dachlänge == 0 || rp.sparrenlänge == 0) return;
-        dachfläche = 2 * (rp.dachlänge * rp.sparrenlänge);
+        if (rp.dachlänge == null || rp.sparrenlänge == null) return;
+        dachfläche = 2 * ((rp.dachlänge/100 * rp.sparrenlänge/100));
         UpdateReihen();
         UpdateDachziegelProReihe();
     }
 
     public void UpdateDachziegelProReihe()
     {
-        dachziegelProReihe = rp.dachlänge / ep.eindeckbreite;
+        if (rp.dachlänge == null || ep.eindeckbreite == null) return;
+        dachziegelProReihe = Math.Ceiling((double)(rp.dachlänge / ep.eindeckbreite));
         UpdateDachziegelGesamt();
     }
-    
+
     public void UpdateReihen()
     {
-        if (ep.eindeckhöhe ==  null  || rp.sparrenlänge == null || rp.sparrenlänge == 0) return;
-        reihen = ep.eindeckhöhe / rp.sparrenlänge;
+        if (rp.sparrenlänge == null || ep.eindeckhöhe ==  null || ep.eindeckhöhe == 0) return;
+        reihen = Math.Ceiling((double)(rp.sparrenlänge / ep.eindeckhöhe));
         UpdateDachziegelGesamt();
     }
 
     public void UpdateDachziegelGesamt()
     {
         if (reihen == null || dachziegelProReihe == null) return;
-        dachziegelGesamt = reihen * dachziegelProReihe;
+        dachziegelGesamt = 2 * reihen * dachziegelProReihe;
         
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Net.Mime;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace DachflächenkalkulatorForms;
@@ -28,28 +29,34 @@ public class Rechenparameter
     {
         if (ep.hausbreite == null || ep.überstandBreite == null) return;
         dachbreite = ep.hausbreite + ep.überstandBreite;
-        UpdateSparrenlänge();
+        
     }
     
-    public void UpdateSparrenlänge()
+    public void UpdateSparrenlänge(bool dachhöheReadOnly)
     {
         if (dachbreite == 0 || dachbreite == null) return;
-        if (ep.dachhöhe != null && dachbreite != null)
+        if (ep.dachhöhe != null && !dachhöheReadOnly)
         {
             sparrenlänge = 
                 Math.Sqrt(
-                    Math.Pow((double) dachbreite, 2) 
+                    Math.Pow((double) dachbreite / 2 , 2) 
                     + Math.Pow((double) ep.dachhöhe, 2)
                 );
-            ep.neigungswinkel = Math.Round(Math.Asin((double) (ep.dachhöhe / sparrenlänge)), 2);
+            ep.neigungswinkel = Math.Round(RadiansToDegrees(Math.Atan((double)(ep.dachhöhe/(dachbreite/2)))), 2);
         }
-        else if (ep.neigungswinkel != null && ep.dachhöhe != null)
+        else if (ep.neigungswinkel != null && dachhöheReadOnly)
         {
-            sparrenlänge =
-                dachbreite / (2 * Math.Cos((double) ep.neigungswinkel));
-            ep.dachhöhe = Math.Sin(ep.neigungswinkel * sparrenlänge ?? 0);
+            sparrenlänge = (dachbreite/2) / Math.Cos((double)((Math.PI / 180) * ep.neigungswinkel));
+            ep.dachhöhe = Math.Round((double)(dachbreite/2 * Math.Tan((double)(Math.PI / 180 * ep.neigungswinkel))),2);
         }
-        else sparrenlänge = 0;
-        
+    }
+
+    double DegreesToRadians(double? degrees)
+    {
+        return (degrees * (Math.PI / 180.0)) ?? 0;
+    }
+    double RadiansToDegrees(double? radian)
+    {
+        return (radian * (180.0 / Math.PI)) ?? 0 ;
     }
 }

@@ -40,7 +40,7 @@
             <TextBox x:Name="txt_MengeProReihe" HorizontalAlignment="Right" Margin="0,30,35,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="txt_MengeProReihe_TextChanged" Height="18" IsReadOnly="True" />
             <Label x:Name="lbl_MengeProReihe" Content="Dachziegel pro Reihe:" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
             <TextBox x:Name="txt_AnzahlReihen" HorizontalAlignment="Right" Margin="0,55,35,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="txt_AnzahlReihen_TextChanged" Height="18" IsReadOnly="True"/>
-            <Label x:Name="lbl_AnzahlReihen" Content="Reihen:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
+            <Label x:Name="lbl_AnzahlReihen" Content="Reihen je Seite:" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
             <TextBox x:Name="txt_Dachfläche" HorizontalAlignment="Right" Margin="0,80,35,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="txt_Dachfläche_TextChanged" Height="18" IsReadOnly="True"/>
             <Label x:Name="lbl_Dachfläche" Content="Dachfläche:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
             <TextBox x:Name="txt_DachziegelGesamt" HorizontalAlignment="Right" Margin="0,115,35,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="txt_DachziegelGesamt_TextChanged" FontWeight="Bold" Height="18" IsReadOnly="True"/>
