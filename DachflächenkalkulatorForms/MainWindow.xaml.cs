@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DachflächenkalkulatorForms
 {
@@ -24,9 +13,9 @@ namespace DachflächenkalkulatorForms
             InitializeComponent();
         }
 
-        protected static Eingabeparameter ep = new();
-        protected static Rechenparameter rp = new Rechenparameter(ep);
-        protected Ausgabeparameter ap = new Ausgabeparameter(ep, rp);
+        private static Eingabeparameter ep = new();
+        private static Rechenparameter rp = new(ep);
+        private Ausgabeparameter ap = new(ep, rp);
 
         
 
@@ -35,6 +24,7 @@ namespace DachflächenkalkulatorForms
         ///////////////////////////////////////
         private void txt_Hauslänge_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ep.hauslaenge.Equals(checkNullAndConvertToDouble(txt_Hauslänge) * 1000)) return;
             ep.hauslaenge = checkNullAndConvertToDouble(txt_Hauslänge) * 1000;
             rp.UpdateDachlänge();
             ap.UpdateDachfläche();
@@ -43,6 +33,7 @@ namespace DachflächenkalkulatorForms
 
         private void txt_Hausbreite_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (ep.hausbreite.Equals(checkNullAndConvertToDouble(txt_Hausbreite) * 1000)) return;
             ep.hausbreite = checkNullAndConvertToDouble(txt_Hausbreite) * 1000;
             rp.UpdateDachbreite();
             updateAllForms();
@@ -51,6 +42,7 @@ namespace DachflächenkalkulatorForms
 
         private void txt_ÜberstandLänge_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ep.überstandLänge.Equals(checkNullAndConvertToDouble(txt_ÜberstandLänge))) return;
             ep.überstandLänge = checkNullAndConvertToDouble(txt_ÜberstandLänge);
             rp.UpdateDachlänge();
             ap.UpdateDachfläche();
@@ -58,7 +50,8 @@ namespace DachflächenkalkulatorForms
         }
 
         private void txt_ÜberstandBreite_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        {            
+            if(ep.überstandBreite.Equals(checkNullAndConvertToDouble(txt_ÜberstandBreite))) return;
             ep.überstandBreite = checkNullAndConvertToDouble(txt_ÜberstandBreite);
             rp.UpdateDachbreite();
             updateAllForms();
@@ -66,6 +59,7 @@ namespace DachflächenkalkulatorForms
 
         private void txt_Dachhöhe_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ep.dachhöhe.Equals(checkNullAndConvertToDouble(txt_Dachhöhe)))return;
             ep.dachhöhe = checkNullAndConvertToDouble(txt_Dachhöhe);
             if (ep.dachhöhe == null) undoReadOnly(txt_Neigungswinkel);
             else makeReadOnly(txt_Neigungswinkel);
@@ -76,6 +70,7 @@ namespace DachflächenkalkulatorForms
 
         private void txt_Neigungswinkel_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ep.neigungswinkel.Equals(checkNullAndConvertToDouble(txt_Neigungswinkel))) return;
             ep.neigungswinkel = checkNullAndConvertToDouble(txt_Neigungswinkel);
             if (ep.neigungswinkel == null) undoReadOnly(txt_Dachhöhe);
             else makeReadOnly(txt_Dachhöhe);
@@ -86,6 +81,7 @@ namespace DachflächenkalkulatorForms
         
         private void txt_Eindeckbreite_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ep.eindeckbreite.Equals(checkNullAndConvertToDouble(txt_Eindeckbreite))) return;
             ep.eindeckbreite = checkNullAndConvertToDouble(txt_Eindeckbreite);
             ap.UpdateDachziegelProReihe();
             updateAusgabeparameterUI();
@@ -93,6 +89,7 @@ namespace DachflächenkalkulatorForms
 
         private void txt_Eindeckhöhe_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ep.eindeckhöhe.Equals(checkNullAndConvertToDouble(txt_Eindeckhöhe)))return;
             ep.eindeckhöhe = checkNullAndConvertToDouble(txt_Eindeckhöhe);
             ap.UpdateReihen();
             updateAusgabeparameterUI();
@@ -105,24 +102,28 @@ namespace DachflächenkalkulatorForms
 
         private void txt_MengeProReihe_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ap.dachziegelProReihe.Equals(checkNullAndConvertToDouble(txt_MengeProReihe))) return;
             ap.dachziegelProReihe = checkNullAndConvertToDouble(txt_MengeProReihe);
             updateAusgabeparameterUI();
         }
 
         private void txt_AnzahlReihen_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        { 
+            if(ap.reihen.Equals(checkNullAndConvertToDouble(txt_AnzahlReihen)))return;
             ap.reihen = checkNullAndConvertToDouble(txt_AnzahlReihen);
             updateAusgabeparameterUI();
         }
 
         private void txt_Dachfläche_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ap.dachfläche.Equals(checkNullAndConvertToDouble(txt_Dachfläche))) return;
             ap.dachfläche = checkNullAndConvertToDouble(txt_Dachfläche);
             updateAusgabeparameterUI();
         }
 
         private void txt_DachziegelGesamt_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(ap.dachziegelGesamt.Equals(checkNullAndConvertToDouble(txt_DachziegelGesamt)))return;
             ap.dachziegelGesamt = checkNullAndConvertToDouble(txt_DachziegelGesamt);
             updateAusgabeparameterUI();
         }
