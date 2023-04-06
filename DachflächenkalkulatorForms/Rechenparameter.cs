@@ -12,14 +12,14 @@ public class Rechenparameter : MainWindow
     public double? sparrenlänge;
     public double? dachbreite;
 
-    public void updateDachlänge()
+    public void UpdateDachlänge()
     {
         if (ep.hauslaenge == 0) return;
         rp.dachlänge = ep.hauslaenge + ep.überstandLänge ?? 0;
         ap.UpdateDachfläche();
     }
     
-    public void updateDachbreite()
+    public void UpdateDachbreite()
     {
         if (ep.hausbreite == null || ep.überstandBreite == null) return;
         rp.dachbreite = ep.hausbreite + ep.überstandBreite;
@@ -32,7 +32,7 @@ public class Rechenparameter : MainWindow
         if (ep.dachhöhe == null) undoReadOnly(txt_Neigungswinkel);
         else if (ep.neigungswinkel == null) undoReadOnly(txt_Dachhöhe);
         
-        if (Nicht0undNull(ep.dachhöhe) && Nicht0undNull(rp.dachbreite))
+        if (ep.dachhöhe != null && rp.dachbreite != null)
         {
             rp.sparrenlänge = 
                 Math.Sqrt(
@@ -53,10 +53,5 @@ public class Rechenparameter : MainWindow
         }
         else rp.sparrenlänge = 0;
         ap.UpdateReihen();
-    }
-
-    private static bool Nicht0undNull(double? ep)
-    {
-        return ep != 0 && ep != null;
     }
 }
