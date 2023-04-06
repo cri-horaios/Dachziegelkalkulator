@@ -1,7 +1,15 @@
 ﻿namespace DachflächenkalkulatorForms;
 
-public class Ausgabeparameter : MainWindow
+public class Ausgabeparameter
 {
+    public Ausgabeparameter(Eingabeparameter eingabeparameter, Rechenparameter rechenparameter)
+    {
+        ep = eingabeparameter; 
+        rp = rechenparameter;
+    }
+
+    private readonly Eingabeparameter ep;
+    private Rechenparameter rp;
     //Ergebnisparameter
     public double? dachfläche;
     public double? reihen;
@@ -10,32 +18,30 @@ public class Ausgabeparameter : MainWindow
     
     public void UpdateDachfläche()
     {
+        
         if (rp.dachlänge == 0 || rp.sparrenlänge == 0) return;
-        ap.dachfläche = 2 * (rp.dachlänge * rp.sparrenlänge);
-        txt_Dachfläche.Text = ap.dachfläche.ToString();
-        ap.UpdateReihen();
-        ap.UpdateDachziegelProReihe();
+        dachfläche = 2 * (rp.dachlänge * rp.sparrenlänge);
+        UpdateReihen();
+        UpdateDachziegelProReihe();
     }
 
     public void UpdateDachziegelProReihe()
     {
-        ap.dachziegelProReihe = rp.dachlänge / ep.eindeckbreite;
-        txt_MengeProReihe.Text = ap.dachziegelProReihe.ToString();
+        dachziegelProReihe = rp.dachlänge / ep.eindeckbreite;
         UpdateDachziegelGesamt();
     }
     
     public void UpdateReihen()
     {
         if (ep.eindeckhöhe ==  null  || rp.sparrenlänge == null || rp.sparrenlänge == 0) return;
-        ap.reihen = ep.eindeckhöhe / rp.sparrenlänge;
-        txt_AnzahlReihen.Text = ap.reihen.ToString();
+        reihen = ep.eindeckhöhe / rp.sparrenlänge;
         UpdateDachziegelGesamt();
     }
 
     public void UpdateDachziegelGesamt()
     {
-        if (ap.reihen == null || ap.dachziegelProReihe == null) return;
-        ap.dachziegelGesamt = ap.reihen * ap.dachziegelProReihe;
-        txt_DachziegelGesamt.Text = ap.dachziegelGesamt.ToString();
+        if (reihen == null || dachziegelProReihe == null) return;
+        dachziegelGesamt = reihen * dachziegelProReihe;
+        
     }
 }

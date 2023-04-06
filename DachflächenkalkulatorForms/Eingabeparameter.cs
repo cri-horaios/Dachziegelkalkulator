@@ -2,7 +2,7 @@
 
 namespace DachflächenkalkulatorForms;
 
-public class Eingabeparameter : MainWindow
+public class Eingabeparameter
 {
     public double? hausbreite;
     public double? hauslaenge;

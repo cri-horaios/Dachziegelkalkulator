@@ -5,8 +5,14 @@ using System.Windows.Media;
 
 namespace DachflächenkalkulatorForms;
 
-public class Rechenparameter : MainWindow
+public class Rechenparameter
 {
+    public Rechenparameter(Eingabeparameter ep)
+    {
+        this.ep = ep;
+    }
+
+    private Eingabeparameter ep;
     //Rechenparameter
     public double? dachlänge;
     public double? sparrenlänge;
@@ -15,43 +21,35 @@ public class Rechenparameter : MainWindow
     public void UpdateDachlänge()
     {
         if (ep.hauslaenge == 0) return;
-        rp.dachlänge = ep.hauslaenge + ep.überstandLänge ?? 0;
-        ap.UpdateDachfläche();
+        dachlänge = ep.hauslaenge + ep.überstandLänge ?? 0;
     }
     
     public void UpdateDachbreite()
     {
         if (ep.hausbreite == null || ep.überstandBreite == null) return;
-        rp.dachbreite = ep.hausbreite + ep.überstandBreite;
+        dachbreite = ep.hausbreite + ep.überstandBreite;
+        UpdateSparrenlänge();
     }
     
     public void UpdateSparrenlänge()
     {
-        if (rp.dachbreite == 0 || rp.dachbreite == null) return;
-        
-        if (ep.dachhöhe == null) undoReadOnly(txt_Neigungswinkel);
-        else if (ep.neigungswinkel == null) undoReadOnly(txt_Dachhöhe);
-        
-        if (ep.dachhöhe != null && rp.dachbreite != null)
+        if (dachbreite == 0 || dachbreite == null) return;
+        if (ep.dachhöhe != null && dachbreite != null)
         {
-            rp.sparrenlänge = 
+            sparrenlänge = 
                 Math.Sqrt(
-                    Math.Pow((double) rp.dachbreite, 2) 
+                    Math.Pow((double) dachbreite, 2) 
                     + Math.Pow((double) ep.dachhöhe, 2)
                 );
-            ep.neigungswinkel = Math.Round(Math.Asin((double) (ep.dachhöhe / rp.sparrenlänge)), 2);
-            txt_Neigungswinkel.Text = ep.neigungswinkel.ToString();
-            makeReadOnly(txt_Neigungswinkel);
+            ep.neigungswinkel = Math.Round(Math.Asin((double) (ep.dachhöhe / sparrenlänge)), 2);
         }
         else if (ep.neigungswinkel != null && ep.dachhöhe != null)
         {
-            rp.sparrenlänge =
-                rp.dachbreite / (2 * Math.Cos((double) ep.neigungswinkel));
-            ep.dachhöhe = Math.Sin(ep.neigungswinkel * rp.sparrenlänge ?? 0);
-            txt_Dachhöhe.Text = ep.dachhöhe.ToString();
-            makeReadOnly(txt_Dachhöhe);
+            sparrenlänge =
+                dachbreite / (2 * Math.Cos((double) ep.neigungswinkel));
+            ep.dachhöhe = Math.Sin(ep.neigungswinkel * sparrenlänge ?? 0);
         }
-        else rp.sparrenlänge = 0;
-        ap.UpdateReihen();
+        else sparrenlänge = 0;
+        
     }
 }
