@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DachflächenkalkulatorForms"
         mc:Ignorable="d"
-        Title="Dachflächenkalkulator" Height="250" SizeToContent="WidthAndHeight" Width="474">
+        Title="Dachflächenkalkulator" Height="250" SizeToContent="WidthAndHeight" Width="475">
     <Grid x:Name="Alles">
         <Grid x:Name="Eingabe" VerticalAlignment="Center" HorizontalAlignment="Left" Width="240">
             <Label x:Name="lbl_Eingabeparameter" Content="Eingabeparameter:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
@@ -35,7 +35,7 @@
             <Label x:Name="lbl_Eindeckbreite_cm" Content="cm" HorizontalAlignment="Left" Margin="205,176,0,0" VerticalAlignment="Top"/>
             <Label x:Name="lbl_Eindeckhöhe1" Content="cm" HorizontalAlignment="Left" Margin="205,201,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid x:Name="Ausgabe" Margin="250,0,0,100">
+        <Grid x:Name="Ausgabe" Margin="250,0,0,100" Width="225">
             <Label x:Name="lbl_Ausgabeparameter" Content="Ausgabewerte:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Margin="10,0,0,0" Height="29" Width="125"/>
             <TextBox x:Name="txt_MengeProReihe" HorizontalAlignment="Right" Margin="0,30,35,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="txt_MengeProReihe_TextChanged" Height="18" IsReadOnly="True" />
             <Label x:Name="lbl_MengeProReihe" Content="Dachziegel pro Reihe:" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Height="26" Width="125"/>
